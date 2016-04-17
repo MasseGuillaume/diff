@@ -1,4 +1,5 @@
 import cbt._
+import cbt.extensions._
 import java.net._
 import java.io.File
 import scala.collection.immutable.Seq
@@ -12,7 +13,7 @@ class Build(context: cbt.Context) extends cbt.PublishBuild(context){
 
   override def runClass: String = "ai.x.diff.Test"
 
-  override def dependencies = super.dependencies :+ MavenRepository.central.resolve(
+  override def dependencies = super.dependencies :+ MavenResolver(context.paths.mavenCache,MavenResolver.central).resolve(
     "com.chuusai" %% "shapeless" % "2.2.0",
     "org.cvogt" %% "scala-extensions" % "0.4.1"
   )
