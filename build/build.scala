@@ -1,5 +1,4 @@
 import cbt._
-import cbt.extensions._
 import java.net._
 import java.io.File
 import scala.collection.immutable.Seq
