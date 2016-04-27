@@ -13,10 +13,13 @@ class Build(context: cbt.Context) extends cbt.PublishBuild(context){
 
   override def runClass: String = "ai.x.diff.Test"
 
-  override def dependencies = super.dependencies :+ MavenResolver(context.paths.mavenCache,MavenResolver.central).resolve(
-    "com.chuusai" %% "shapeless" % "2.2.0",
-    "org.cvogt" %% "scala-extensions" % "0.4.1"
-  )
+  override def dependencies = super.dependencies :+
+    MavenResolver(
+      context.cbtHasChanged,context.paths.mavenCache,MavenResolver.central
+    ).resolve(
+      "com.chuusai" %% "shapeless" % "2.2.0",
+      "org.cvogt" %% "scala-extensions" % "0.4.1"
+    )
   override def scalacOptions = Seq( "-language:experimental.macros" )
 
   override def url = new URL("http://github.com/xdotai/diff")
