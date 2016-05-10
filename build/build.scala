@@ -3,6 +3,7 @@ import java.net._
 import java.io.File
 import scala.collection.immutable.Seq
 
+// cbt:https://github.com/cvogt/cbt.git#80da1d862e49b1812c51e1b0c6eb26947d36f26d
 class Build(context: cbt.Context) extends cbt.PublishBuild(context){
   override def defaultScalaVersion = "2.11.8"
 
@@ -12,10 +13,8 @@ class Build(context: cbt.Context) extends cbt.PublishBuild(context){
 
   override def runClass: String = "ai.x.diff.Test"
 
-  override def dependencies = super.dependencies :+
-    MavenResolver(
-      context.cbtHasChanged,context.paths.mavenCache,MavenResolver.central
-    ).resolve(
+  override def dependencies = super.dependencies ++
+    Resolver( mavenCentral ).bind(
       "com.chuusai" %% "shapeless" % "2.2.0",
       "org.cvogt" %% "scala-extensions" % "0.4.1"
     )
